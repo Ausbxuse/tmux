@@ -5,6 +5,7 @@ current_path=$(tmux display-message -p -F "#{pane_current_path}")
 
 # Replace /home/USER/ with ~
 formatted_path=${current_path/\/home\/$USER/\~}
+# formatted_path=$current_path
 
 # Function to truncate and add ellipsis in the middle if needed
 truncate_path() {
@@ -14,17 +15,14 @@ truncate_path() {
 	if [ ${#path} -gt $max_length ]; then
 		echo "${path:0:$part_length}...${path: -$part_length}"
 	else
-		string_length=${#path}
-		num_spaces=$((max_length - string_length))
-		for ((i = 1; i <= num_spaces; i++)); do
-			path+=" "
-		done
-
-		# echo "$max_length"
-		# echo "$num_spaces"
-		echo "$path"
-		# printf "%-${max_length}s" "$path"
+		local string_length=${#path}
+		local num_spaces=$((max_length - string_length))
+		# Generate the spaces
+		local FILL=$(printf '%*s' $num_spaces)
+		# Concatenate your path with spaces
+		echo -n "${path}${FILL}"
 	fi
 }
 
-echo $(truncate_path "$formatted_path" 32)
+# Call the function and print its output
+truncate_path "$formatted_path" 30
