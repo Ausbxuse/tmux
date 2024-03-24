@@ -20,6 +20,18 @@ truncate_path() {
 		# Generate the spaces
 		local FILL=$(printf '%*s' $num_spaces)
 		# Concatenate your path with spaces
+
+		# res=$(echo -n "${path}${FILL}" | sed 's/~\/\.local\/src/~src/')
+
+		# res=$(echo -n "${path}${FILL}" | sed 's|~/.local/src|~src|')
+
+		# if [ $res = "~/Documents/USC" ]; then
+		# 	res="~USC"
+		#   elif [ $res = "~/Documents/USC" ]; then
+		# 	res="~USC"
+		# fi
+
+		# echo -n $res
 		echo -n "${path}${FILL}"
 	fi
 }
